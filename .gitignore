@@ -41,9 +41,6 @@ jspm_packages
 
 .gitignore
 Solar-Sytem/
-app/
-dist/
-gulpfile.js
 node_modules/.bin/dateformat
 node_modules/.bin/gulp
 node_modules/.bin/har-validator
@@ -690,5 +687,3 @@ node_modules/wrappy/
 node_modules/ws/
 node_modules/xtend/
 node_modules/yeast/
-package.json
-app/js/
