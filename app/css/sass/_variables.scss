@@ -1,0 +1,110 @@
+
+//Planet size
+$sun:100px;
+$mercury:15px;
+$venus:25px;
+$earth:30px;
+$mars:20px;
+$jupiter:45px;
+$saturn:40px;
+$uranus:35px;
+$neptune:35px;
+$pluto:10px;
+
+
+
+
+//Orbit Size
+$mercury-orbit:150px;
+$venus-orbit:200px;
+$earth-orbit:250px;
+$mars-orbit:300px;
+$asteroid-belt-position:350px;
+$jupiter-orbit:400px;
+$saturn-orbit:475px;
+$uranus-orbit:560px;
+$neptune-orbit:675px;
+$pluto-orbit:750px;
+
+
+
+//Colors
+$background: #000;
+$mercury-color: #e2e2e2;
+$venus-color: #FFFF00;
+$earth-color: #d6ebf2;
+$mars-color: #ae3f3f;
+$jupiter-color: #ffc966;
+$saturn-color: #e5c100;
+$uranus-color: #b5dbe8;
+$neptune-color: #add8e6;
+$pluto-color: #f4a460;
+
+
+
+//*******************************************************
+//************* ANIMATIONS ******************************
+//*******************************************************
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+//*******************************************************
+//************* Mixin and Functions *********************
+//*******************************************************
+
+
+@mixin planet($size,$distance) {
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+  position: absolute;
+  top: -$size/2;
+  left: -($size/2 + $distance/2);
+}
+
+@mixin revolve-around-sun($size,$distance) {
+    transform-origin: $size/2 + $distance/2;
+}
+
+@mixin orbit($size) {
+  @include planet($size,0);
+  border: 1px gray solid;
+}
+
+
+
+//Revolution of planets in earth days (from Wikipedia)
+//Mercury : ~87,5 days
+//Venus : ~224,7 days
+//Earth : ~365,2563 days + Moon : ~27,3216 days (around earth)
+//Mars : ~687 days (~1,8 year)
+//Jupiter : ~4 331 days (~12 years)
+//Saturn : ~10 747 days (~30 years)
+//Uranus : ~30 589 days (~84 years)
+//Neptune : ~59 802 days (~165 years)
+//Pluto : ~90 580 days (~248 years)
+
+$year-in-second : 30; // 1 Earth year = 30 sec
+
+@function revolution($pl-year-in-days){
+  @return $pl-year-in-days * $year-in-second / 365.2563 + s  //Earth reference
+}
+
+@function alphaRandom(){
+  @return random(1000)*.001;
+}
+@function stars($s, $max-area, $min-area : 0, $star-size : 0){
+  $stars : #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(255,255,255, alphaRandom());
+  @for $i from 1 to $s{
+    $stars: '#{$stars} , #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(255,255,255, #{alphaRandom()})'
+  }
+  @return unquote($stars);
+}
